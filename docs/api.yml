@@ -1,0 +1,485 @@
+openapi: 3.0.3
+info:
+  title: harena
+  description: harena
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /patrimoines:
+    get:
+      tags:
+        - patrimoine
+      operationId: getPatrimoines
+      summary: obtenir une liste paginée des patrimoines
+      parameters:
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/page_size"
+      responses:
+        '200':
+          description: liste paginée de patrimoines
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Patrimoine"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - patrimoine
+      operationId: crupdatePatrimoines
+      summary: met à jour les patrimoines si le nom est donné, sinon on le crée
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Patrimoine"
+      responses:
+        '200':
+          description: liste de patrimoines créés ou mis à jour
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Patrimoine"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /patrimoines/{nom_patrimoine}:
+    get:
+      tags:
+        - patrimoine
+      operationId: getPatrimoineByNom
+      summary: obtenir le patrimoine demandé
+      parameters:
+        - $ref: "#/components/parameters/nom_patrimoine"
+      responses:
+        '200':
+          description: le patrimoine demandé
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/Patrimoine"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /patrimoines/{nom_patrimoine}/possessions:
+    put:
+      tags:
+        - possession
+      operationId: crupdatePatrimoinePossessions
+      summary: met à jour une possession d'un patrimoine si le nom existe, sinon on le crée
+      parameters:
+        - $ref: "#/components/parameters/nom_patrimoine"
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/page_size"
+      requestBody:
+        description: liste de possessions à ajouter ou à modifier
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/PossessionAvecType"
+      responses:
+        '200':
+          description: liste de possessions ajoutées ou modifiées
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PossessionAvecType"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      tags:
+        - possession
+      operationId: getPatrimoinePossessions
+      summary:  obtenir une liste paginée des possessions d'un patrimoine
+      parameters:
+        - $ref: "#/components/parameters/nom_patrimoine"
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/page_size"
+      responses:
+        '200':
+          description: liste paginée des possessions
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/PossessionAvecType"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /patrimoines/{nom_patrimoine}/possessions/{nom_possession}:
+    parameters:
+      - $ref: "#/components/parameters/nom_patrimoine"
+      - $ref: "#/components/parameters/nom_possession"
+    get:
+      tags:
+        - possession
+      operationId: getPatrimoinePossessionByNom
+      summary: obtenir la possession demandée
+      responses:
+        '200':
+          description: la possession demandée
+          content:
+            "application/json":
+              schema:
+                $ref: "#/components/schemas/PossessionAvecType"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - possession
+      operationId: deletePatrimoinePossessionByNom
+      summary: effacer un patrimoine d'une possession
+      responses:
+        '204':
+          description: no content
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /patrimoines/{nom_patrimoine}/flux-impossibles:
+    get:
+      tags:
+        - projection_future
+      operationId: getPatrimoineFluxImpossibles
+      summary: obtenir une liste des flux impossibles du patrimoine dans une intervalle donnée
+      parameters:
+        - $ref: "#/components/parameters/nom_patrimoine"
+        - $ref: "#/components/parameters/debut"
+        - $ref: "#/components/parameters/fin"
+      responses:
+        '200':
+          description: flux impossibles du patrimoine actuel selon une plage de date donnée
+          content:
+            'application/json':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/FluxImpossibles"
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /patrimoines/{nom_patrimoine}/graphe:
+    get:
+      tags:
+        - projection_future
+      operationId: getPatrimoineGraph
+      summary: obtenir le graphe de projection d'un patrimoine sur une plage de date donnée
+      parameters:
+        - $ref: "#/components/parameters/nom_patrimoine"
+        - $ref: "#/components/parameters/debut"
+        - $ref: "#/components/parameters/fin"
+      responses:
+        '200':
+          description: image montrant l'évolution du graphe
+          content:
+            'image/png':
+              schema:
+                type: string
+                format: byte
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  parameters:
+    nom_personne:
+      name: nom_personne
+      required: true
+      in: path
+      description: nom de la personne avec les espaces remplacés par "_" s'il y en a
+      schema:
+        type: string
+    nom_patrimoine:
+      name: nom_patrimoine
+      required: true
+      description: nom du patrimoine avec les espaces remplacés par "_" s'il y en a
+      in: path
+      schema:
+        type: string
+    nom_possession:
+      name: nom_possession
+      description: nom de la possession avec les espaces remplacés par "_" s'il y en a
+      in: path
+      required: true
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      schema:
+        type: integer
+    page_size:
+      name: page_size
+      in: query
+      schema:
+        type: integer
+    debut:
+      name: debut
+      in: query
+      schema:
+        type: string
+        format: date
+    fin:
+      name: fin
+      in: query
+      schema:
+        type: string
+        format: date
+  schemas:
+    Personne:
+      type: object
+      properties:
+        nom:
+          type: string
+    Devise:
+      type: object
+      properties:
+        nom:
+          type: string
+        code:
+          type: string
+    Possession:
+      type: object
+      properties:
+        t:
+          type: string
+          format: date
+        nom:
+          type: string
+        valeur_comptable:
+          type: integer
+        devise:
+          $ref: "#/components/schemas/Devise"
+    PossessionAvecType:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - ARGENT
+            - MATERIEL
+            - FLUXARGENT
+        argent:
+          $ref: "#/components/schemas/Argent"
+        materiel:
+          $ref: "#/components/schemas/Materiel"
+        flux_argent:
+          $ref: "#/components/schemas/FluxArgent"
+    Patrimoine:
+      type: object
+      properties:
+        nom:
+          type: string
+        possesseur:
+          $ref: "#/components/schemas/Personne"
+        t:
+          type: string
+          format: date
+        valeur_comptable:
+          type: integer
+    Argent:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Possession"
+        - properties:
+            date_d_ouverture:
+              type: string
+              format: date
+            type:
+              type: string
+              enum:
+                - DETTE
+                - CREANCE
+                - AUTRES
+    Materiel:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Possession"
+        - properties:
+            date_d_acquisition:
+              type: string
+              format: date
+            taux_dappreciation_annuel:
+              type: number
+              format: double
+    FluxArgent:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Possession"
+        - properties:
+            argent:
+              $ref: "#/components/schemas/Argent"
+            debut:
+              type: string
+              format: date
+            fin:
+              type: string
+              format: date
+            flux_mensuel:
+              type: integer
+            date_d_operation:
+              type: integer
+    FluxImpossibles:
+      type: object
+      properties:
+        nom_argent:
+          type: string
+        date:
+          type: string
+          format: date
+        valeur_argent:
+          type: integer
+        flux_argents:
+          type: array
+          items:
+            $ref: "#/components/schemas/FluxArgent"
+    #############################################
+    ###############  Exceptions #################
+    #############################################
+    Exception:
+      type: object
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+    BadRequestException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: BadRequestException
+        message: Bad request
+    NotAuthorizedException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: NotAuthorizedException
+        message: Not authorized
+    ResourceNotFoundException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: ResourceNotFoundException
+        message: Resource of type <T> identified by <I> not found
+    TooManyRequestsException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: TooManyRequestsException
+        message: Too many requests
+    InternalServerException:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+      example:
+        type: InternalServerException
+        message: Unexpected error
+  responses:
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestException'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotAuthorizedException'
+    '404':
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ResourceNotFoundException'
+    '429':
+      description: Too many requests to the API
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TooManyRequestsException'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerException'
