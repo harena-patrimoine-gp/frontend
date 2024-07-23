@@ -11,7 +11,7 @@ const patrimoineProvider: DataProvider = {
         const response = await conf.get(`${apiUrl}/${resource}`);
         const data = response.data.data.map((item: any, index: number) => ({
             ...item,
-            id: index,
+            id: index, 
         }));
         return {
             data: data,
@@ -37,8 +37,16 @@ const patrimoineProvider: DataProvider = {
     updateMany: function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
-    create: function <RecordType extends Omit<RaRecord, 'id'> = any, ResultRecordType extends RaRecord = RecordType & { id: Identifier; }>(resource: string, params: CreateParams): Promise<CreateResult<ResultRecordType>> {
-        throw new Error('Function not implemented.');
+    create:  async (resource:string,params:{data:any}) => {
+        const {data} = params
+        const response = await conf.put(`${resource}`,data);
+        const dataWithId = {
+            ...response.data,
+            id: response.data.id
+        }
+        return{
+            data:dataWithId
+        }
     },
     delete: function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
         throw new Error('Function not implemented.');

@@ -1,4 +1,24 @@
-import { List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, DateInput, CreateButton,EditButton } from 'react-admin';
+import {
+    List,
+    Datagrid,
+    TextField,
+    Edit,
+    SimpleForm,
+    TextInput,
+    Create,
+    DateInput,
+    CreateButton,
+    EditButton,
+    required,
+    minLength,
+    Toolbar,
+    SaveButton
+} from 'react-admin';
+import {
+    validateReq,
+    validateDate,
+    validateNumber
+} from './validators'
 
 export const patrimoineList = () => (
     <List>
@@ -7,29 +27,30 @@ export const patrimoineList = () => (
             <TextField source="t" label="Date" />
             <TextField source="possesseur.nom" label="Possesseur" />
             <TextField source="valeur_comptable" label="Valeur Comptable" />
-            <EditButton/>
+            <EditButton />
         </Datagrid>
     </List>
 );
 
+
 export const patrimoineEdit = (props: any) => (
     <Edit {...props}>
-        <SimpleForm>
-            <TextInput source="nom_patrimoine" />
-            <TextInput source="possesseur.nom" label="Possesseur" />
-            <TextInput source="t" label="Date" />
-            <TextInput source="valeur_comptable" label="Valeur Comptable" />
+        <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
+            <TextInput source="nom_patrimoine" validate={validateReq} />
+            <TextInput source="possesseur.nom" label="Possesseur" validate={validateReq} />
+            <TextInput source="t" label="Date" validate={validateReq} />
+            <TextInput source="valeur_comptable" label="Valeur Comptable" validate={validateReq} />
         </SimpleForm>
     </Edit>
 );
 
 export const patrimoineCreate = () => (
     <Create>
-        <SimpleForm>
-            <TextInput source="nom" />
-            <TextInput source="possesseur.nom" label="Possesseur" />
-            <TextInput source="t" label="Date" />
-            <TextInput source="valeur_comptable" label="Valeur Comptable" />
+        <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
+            <TextInput source="nom_patrimoine" validate={validateReq} />
+            <TextInput source="possesseur.nom" label="Possesseur" validate={validateReq} />
+            <TextInput source="t" label="Date" validate={validateDate} />
+            <TextInput source="valeur_comptable" label="Valeur Comptable" validate={validateNumber} />
         </SimpleForm>
     </Create>
 );
