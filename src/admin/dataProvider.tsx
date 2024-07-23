@@ -1,11 +1,14 @@
 import { CreateParams, CreateResult, DataProvider, DeleteManyParams, DeleteManyResult, DeleteParams, DeleteResult, GetManyParams, GetManyReferenceParams, GetManyReferenceResult, GetManyResult, GetOneParams, GetOneResult, Identifier, QueryFunctionContext, RaRecord, UpdateManyParams, UpdateManyResult, UpdateParams, UpdateResult } from 'react-admin';
 import axios from 'axios';
+import api from '../api/config';
+import { Patrimoine } from '../gen';
 
-const apiUrl = 'https://virtserver.swaggerhub.com/tovomihajajonathanRAJAONARISON/harena/1.0.0'; 
+const apiUrl = 'https://virtserver.swaggerhub.com/tovomihajajonathanRAJAONARISON/harena/1.0.0';
+const conf = axios.create({ baseURL: apiUrl });
 
-const dataProvider: DataProvider = {
-    getList: async (resource) => {
-        const response = await axios.get(`${apiUrl}/${resource}`);
+const patrimoineProvider: DataProvider = {
+    getList: async (resource:string) => {
+        const response = await conf.get(`${apiUrl}/${resource}`);
         const data = response.data.data.map((item: any, index: number) => ({
             ...item,
             id: index,
@@ -24,8 +27,12 @@ const dataProvider: DataProvider = {
     getManyReference: function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
-    update: function <RecordType extends RaRecord = any>(resource: string, params: UpdateParams): Promise<UpdateResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    update: async (resource:string,params:{data:Patrimoine}) => {
+        const {data} = params;
+        const response = await conf.put(`${resource}`,data);
+        return{
+            data:response.data.data
+        }
     },
     updateMany: function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
         throw new Error('Function not implemented.');
@@ -41,4 +48,4 @@ const dataProvider: DataProvider = {
     }
 };
 
-export default dataProvider;
+export default patrimoineProvider;
