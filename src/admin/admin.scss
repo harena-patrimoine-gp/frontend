@@ -1,0 +1,11 @@
+.customTopToolBar{
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content:space-between;
+     gap: 45vw;
+
+    & h2{
+       color: rgb(74, 169, 207);
+     }
+}
