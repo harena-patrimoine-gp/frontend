@@ -11,6 +11,10 @@ export const validateDate = (value: string) => {
 };
 
 export const validateNumber = (value: number) => {
-    if(!value) return validateReq(value)
+    if(!value) {
+        validateReq(value)
+    }else if (isNaN(value)){
+        return 'must be number'
+    }
     return value > 0 ? undefined : 'must be positive number'
 }

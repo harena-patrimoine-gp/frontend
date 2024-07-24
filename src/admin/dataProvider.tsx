@@ -1,6 +1,5 @@
 import { CreateParams, CreateResult, DataProvider, DeleteManyParams, DeleteManyResult, DeleteParams, DeleteResult, GetManyParams, GetManyReferenceParams, GetManyReferenceResult, GetManyResult, GetOneParams, GetOneResult, Identifier, QueryFunctionContext, RaRecord, UpdateManyParams, UpdateManyResult, UpdateParams, UpdateResult } from 'react-admin';
 import axios from 'axios';
-import api from '../api/config';
 import { Patrimoine } from '../gen';
 
 const apiUrl = 'https://virtserver.swaggerhub.com/tovomihajajonathanRAJAONARISON/harena/1.0.0';
@@ -18,8 +17,16 @@ const patrimoineProvider: DataProvider = {
             total: response.data.length,
         };
     },
-    getOne: function <RecordType extends RaRecord = any>(resource: string, params: GetOneParams<RecordType> & QueryFunctionContext): Promise<GetOneResult<RecordType>> {
-        throw new Error('Function not implemented.');
+    getOne: async (resource:string,params: GetOneParams<RaRecord>) => {
+        const {id} = params
+        const response = await conf.get(`${apiUrl}/${resource}/?nom=${id}`)
+        const dataWithId = {
+            ...response.data,
+            id: response.data.id || id
+        }
+        return {
+            data:dataWithId,
+        };
     },
     getMany: function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
@@ -37,7 +44,7 @@ const patrimoineProvider: DataProvider = {
     updateMany: function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
-    create:  async (resource:string,params:{data:any}) => {
+    create:  async (resource:string,params:{data:Patrimoine}) => {
         const {data} = params
         const response = await conf.put(`${resource}`,data);
         const dataWithId = {
