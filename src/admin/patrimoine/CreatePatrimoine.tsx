@@ -11,7 +11,7 @@ const EditActions = () => (
     </TopToolbar>
 )
 
-const patrimoineCreate = () => (
+const PatrimoineCreate = () => (
     <Create actions={<EditActions/>}>
         <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
             <TextInput source="nom_patrimoine" validate={validateReq} />
@@ -22,4 +22,4 @@ const patrimoineCreate = () => (
     </Create>
 );
 
-export default patrimoineCreate
+export default PatrimoineCreate

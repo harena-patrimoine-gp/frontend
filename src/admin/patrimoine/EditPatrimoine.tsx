@@ -11,7 +11,7 @@ const EditActions = () => (
     </TopToolbar>
 )
 
-const patrimoineEdit = (props: any) => (
+const PatrimoineEdit = (props: any) => (
     <Edit {...props} actions={<EditActions />}>
         <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
             <TextInput source="nom_patrimoine" validate={validateReq} />
@@ -22,4 +22,4 @@ const patrimoineEdit = (props: any) => (
     </Edit>
 );
 
-export default patrimoineEdit
+export default PatrimoineEdit
