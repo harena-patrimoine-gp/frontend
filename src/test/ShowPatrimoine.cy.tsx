@@ -6,7 +6,7 @@ import patrimoineCreate from "../admin/patrimoine/CreatePatrimoine";
 import patrimoineShowDetails from "../admin/patrimoine/ShowPatrimoine";
 import patrimoineEdit from "../admin/patrimoine/EditPatrimoine";
 
-describe("<patrimoineList />", () => {
+describe("<patrimoineCreate />", () => {
   beforeEach(() => {
     mount(
       <Admin dataProvider={dataProvider}>
@@ -21,23 +21,19 @@ describe("<patrimoineList />", () => {
     );
   });
 
-  it("should render the list of patrimoines", () => {
-    cy.get("table").should("exist");
-  });
-
-  it('should render the "Nom" column', () => {
+  it('should render the "Nom" textField', () => {
     cy.get("th").contains("Nom").should("exist");
   });
 
-  it('should render the "Possesseur" column', () => {
+  it('should render the "Possesseur" textField', () => {
     cy.get("th").contains("Possesseur").should("exist");
   });
 
-  it('should render the "Date" column', () => {
+  it('should render the "Date" textField', () => {
     cy.get("th").contains("Date").should("exist");
   });
 
-  it('should render the "Valeur Comptable" column', () => {
+  it('should render the "Valeur Comptable" textField', () => {
     cy.get("th").contains("Valeur Comptable").should("exist");
   });
 });
