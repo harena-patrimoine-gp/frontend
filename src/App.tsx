@@ -1,14 +1,15 @@
 import { Admin, Resource } from 'react-admin';
 import patrimoineProvider from './admin/dataProvider';
 import "./App.scss";
-import  patrimoineCreate  from './admin/patrimoine/CreatePatrimoine';
-import  patrimoineEdit from './admin/patrimoine/EditPatrimoine';
-import  patrimoineList  from './admin/patrimoine/ListPatrimoine';
-import  patrimoineShowDetails  from './admin/patrimoine/ShowPatrimoine';
+import PatrimoineCreate from './admin/patrimoine/CreatePatrimoine';
+import PatrimoineEdit from './admin/patrimoine/EditPatrimoine';
+import PatrimoineList from './admin/patrimoine/ListPatrimoine';
+import PatrimoineShowDetails from './admin/patrimoine/ShowPatrimoine';
+
 
 const App = () => (
     <Admin dataProvider={patrimoineProvider}>
-        <Resource list={patrimoineList} edit={patrimoineEdit} name='patrimoines' create={patrimoineCreate} show={patrimoineShowDetails} ></Resource>
+        <Resource list={PatrimoineList} edit={PatrimoineEdit} name='patrimoines' create={PatrimoineCreate} show={PatrimoineShowDetails}></Resource>
     </Admin>
 )
 

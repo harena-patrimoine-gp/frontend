@@ -1,12 +1,17 @@
-.customTopToolBar{
+.customTopToolBar {
      display: flex;
      flex-direction: row;
      align-items: center;
-     justify-content:space-between;
+     justify-content: space-between;
      gap: 45vw;
 
-    & h2{
-       color: rgb(74, 169, 207);
-       font-size: 19px;
+     & h2 {
+          color: rgb(74, 169, 207);
+          font-size: 19px;
      }
+}
+
+.possession h2 {
+     color: rgb(74, 169, 207);
+     font-size:21px;
 }

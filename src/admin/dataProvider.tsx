@@ -6,8 +6,15 @@ const apiUrl = 'https://virtserver.swaggerhub.com/tovomihajajonathanRAJAONARISON
 const conf = axios.create({ baseURL: apiUrl });
 
 const patrimoineProvider: DataProvider = {
-    getList: async (resource:string) => {
-        const response = await conf.get(`${apiUrl}/${resource}`);
+    getList: async (resource:string ,params: any) => {
+        const{id} = params
+        let queryParams = ''
+        if (resource === 'patrimoines'){
+            queryParams += `/${resource}`
+        }else if(resource === 'possessions'){
+            queryParams += `/patrimoine/?nom_patrimoine=${id}/${resource}`
+        }
+        const response = await conf.get(`${apiUrl}${queryParams}`);
         const data = response.data.data.map((item: any, index: number) => ({
             ...item,
             id: index, 
