@@ -1,4 +1,4 @@
-import { CreateParams, CreateResult, DataProvider, DeleteManyParams, DeleteManyResult, DeleteParams, DeleteResult, GetManyParams, GetManyReferenceParams, GetManyReferenceResult, GetManyResult, GetOneParams, GetOneResult, Identifier, QueryFunctionContext, RaRecord, UpdateManyParams, UpdateManyResult, UpdateParams, UpdateResult } from 'react-admin';
+import { DataProvider, DeleteManyParams, DeleteManyResult, DeleteParams, DeleteResult, GetManyParams, GetManyReferenceParams, GetManyReferenceResult, GetManyResult, GetOneParams, QueryFunctionContext, RaRecord, UpdateManyParams, UpdateManyResult } from 'react-admin';
 import axios from 'axios';
 import { Patrimoine } from '../gen';
 
@@ -47,10 +47,10 @@ const patrimoineProvider: DataProvider = {
             data: dataWithId,
         };
     },
-    getMany: function <RecordType extends RaRecord = any>(resource: string, params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
+    getMany: function <RecordType extends RaRecord = any>(_resource: string, _params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
-    getManyReference: function <RecordType extends RaRecord = any>(resource: string, params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
+    getManyReference: function <RecordType extends RaRecord = any>(_resource: string, _params: GetManyReferenceParams & QueryFunctionContext): Promise<GetManyReferenceResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
     update: async (resource: string, params: { data: Patrimoine ,id:number}) => {
@@ -66,7 +66,7 @@ const patrimoineProvider: DataProvider = {
             data: response.data.data
         }
     },
-    updateMany: function <RecordType extends RaRecord = any>(resource: string, params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
+    updateMany: function <RecordType extends RaRecord = any>(_resource: string, _params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
     create: async (resource: string, params: { data: Patrimoine }) => {
@@ -86,10 +86,10 @@ const patrimoineProvider: DataProvider = {
             data: dataWithId
         }
     },
-    delete: function <RecordType extends RaRecord = any>(resource: string, params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
+    delete: function <RecordType extends RaRecord = any>(_resource: string, _params: DeleteParams<RecordType>): Promise<DeleteResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
-    deleteMany: function <RecordType extends RaRecord = any>(resource: string, params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
+    deleteMany: function <RecordType extends RaRecord = any>(_resource: string, _params: DeleteManyParams<RecordType>): Promise<DeleteManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     }
 };
