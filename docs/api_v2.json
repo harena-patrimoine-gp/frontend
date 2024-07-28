@@ -1,0 +1,579 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/patrimoines/{nom_patrimoine}/possessions/materiel": {
+      "put": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "crupdateMateriel",
+        "parameters": [
+          {
+            "name": "nom_patrimoine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "uniqueItems": true,
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Materiel"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "uniqueItems": true,
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Possession"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimoines/{nom_patrimoine}/possessions/fluxArgent": {
+      "put": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "crupdateFluxArgent",
+        "parameters": [
+          {
+            "name": "nom_patrimoine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "uniqueItems": true,
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FluxArgent"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "uniqueItems": true,
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Possession"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimoines/{nom_patrimoine}/possessions/argent": {
+      "put": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "crupdateArgent",
+        "parameters": [
+          {
+            "name": "nom_patrimoine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "uniqueItems": true,
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Argent"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "uniqueItems": true,
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Possession"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimoines/": {
+      "get": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Patrimoine"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "createUpdate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatrimoineBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patrimoine"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ping": {
+      "get": {
+        "tags": [
+          "ping-controller"
+        ],
+        "operationId": "ping",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimoines/{nom_patrimoine}": {
+      "get": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "getPatrimoineByName",
+        "parameters": [
+          {
+            "name": "nom_patrimoine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Patrimoine"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimoines/{nom_patrimoine}/possessions": {
+      "get": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "getAllPossessionByPatrimoine",
+        "parameters": [
+          {
+            "name": "nom_patrimoine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "uniqueItems": true,
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Possession"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patrimoines/{nom_patrimoine}/graphe": {
+      "get": {
+        "tags": [
+          "patrimoine-endpoint"
+        ],
+        "operationId": "getPatrimoineFuture",
+        "parameters": [
+          {
+            "name": "nom_patrimoine",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "debut",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "fin",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/email": {
+      "get": {
+        "tags": [
+          "health-email-controller"
+        ],
+        "operationId": "send_emails",
+        "parameters": [
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/bucket": {
+      "get": {
+        "tags": [
+          "health-bucket-controller"
+        ],
+        "operationId": "file_can_be_uploaded_then_signed",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Devise": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "valeurEnAriary": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "tauxDappréciationAnnuel": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "Materiel": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "valeurComptable": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devise": {
+            "$ref": "#/components/schemas/Devise"
+          }
+        }
+      },
+      "Possession": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "valeurComptable": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devise": {
+            "$ref": "#/components/schemas/Devise"
+          }
+        }
+      },
+      "Argent": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "valeurComptable": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devise": {
+            "$ref": "#/components/schemas/Devise"
+          },
+          "dateOuverture": {
+            "type": "string",
+            "format": "date"
+          },
+          "fluxArgents": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FluxArgent"
+            }
+          }
+        }
+      },
+      "FluxArgent": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "valeurComptable": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "devise": {
+            "$ref": "#/components/schemas/Devise"
+          },
+          "argent": {
+            "$ref": "#/components/schemas/Argent"
+          },
+          "debut": {
+            "type": "string",
+            "format": "date"
+          },
+          "fin": {
+            "type": "string",
+            "format": "date"
+          },
+          "fluxMensuel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "dateOperation": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "Patrimoine": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "possesseur": {
+            "$ref": "#/components/schemas/Personne"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "possessions": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Possession"
+            }
+          },
+          "valeurComptable": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PatrimoineBody":{
+      "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "possesseur": {
+            "$ref": "#/components/schemas/Personne"
+          },
+          "t": {
+            "type": "string",
+            "format": "date"
+          },
+          "possessions": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Possession"
+            }
+          }
+        }
+      },
+      "Personne": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

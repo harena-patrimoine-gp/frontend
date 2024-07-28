@@ -1,13 +1,13 @@
-import { Admin, Resource } from "react-admin";
+import { Admin, DataProvider, Resource } from "react-admin";
 import { mount } from "cypress/react";
 import patrimoineCreate from "../admin/patrimoine/CreatePatrimoine";
 import patrimoineList from "../admin/patrimoine/ListPatrimoine";
-import dataProvider from "../admin/dataProvider";
+import patrimoineProvider from "../admin/dataProvider";
 
 describe("<patrimoineCreate />", () => {
   beforeEach(() => {
     mount(
-      <Admin dataProvider={dataProvider}>
+      <Admin dataProvider={patrimoineProvider as unknown as DataProvider}>
         <Resource
           name="patrimoines"
           list={patrimoineList}

@@ -1,7 +1,7 @@
 import patrimoineList from "../admin/patrimoine/ListPatrimoine";
 import { mount } from "cypress/react";
-import { Admin, Resource } from "react-admin";
-import dataProvider from "../admin/dataProvider";
+import { Admin, DataProvider, Resource } from "react-admin";
+import patrimoineProvider from "../admin/dataProvider";
 import patrimoineCreate from "../admin/patrimoine/CreatePatrimoine";
 import patrimoineShowDetails from "../admin/patrimoine/ShowPatrimoine";
 import patrimoineEdit from "../admin/patrimoine/EditPatrimoine";
@@ -9,7 +9,7 @@ import patrimoineEdit from "../admin/patrimoine/EditPatrimoine";
 describe("<patrimoineShow />", () => {
   beforeEach(() => {
     mount(
-      <Admin dataProvider={dataProvider}>
+      <Admin dataProvider={patrimoineProvider as unknown as DataProvider}>
         <Resource
           name="patrimoines"
           list={patrimoineList}

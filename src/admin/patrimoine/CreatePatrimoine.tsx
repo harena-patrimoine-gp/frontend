@@ -12,12 +12,12 @@ const EditActions = () => (
 )
 
 const PatrimoineCreate = () => (
-    <Create actions={<EditActions/>}>
+    <Create actions={<EditActions />}>
         <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
-            <TextInput source="nom_patrimoine" validate={validateReq} />
-            <TextInput source="possesseur.nom" label="Possesseur" validate={validateReq} />
+            <TextInput source="nom" validate={validateReq} />
+            <TextInput source="Personne.nom" label="Possesseur" validate={validateReq} />
             <TextInput source="t" label="Date" validate={validateDate} />
-            <TextInput source="valeur_comptable" label="Valeur Comptable" validate={validateNumber} />
+            <TextInput source="valeurComptable" label="Valeur Comptable" validate={validateNumber} />
         </SimpleForm>
     </Create>
 );

@@ -1,4 +1,4 @@
-import { Admin, Resource } from 'react-admin';
+import { Admin, DataProvider, Resource } from 'react-admin';
 import patrimoineProvider from './admin/dataProvider';
 import "./App.scss";
 import PatrimoineCreate from './admin/patrimoine/CreatePatrimoine';
@@ -8,7 +8,7 @@ import PatrimoineShowDetails from './admin/patrimoine/ShowPatrimoine';
 
 
 const App = () => (
-    <Admin dataProvider={patrimoineProvider}>
+    <Admin dataProvider={patrimoineProvider as unknown as DataProvider}>
         <Resource list={PatrimoineList} edit={PatrimoineEdit} name='patrimoines' create={PatrimoineCreate} show={PatrimoineShowDetails}></Resource>
     </Admin>
 )
