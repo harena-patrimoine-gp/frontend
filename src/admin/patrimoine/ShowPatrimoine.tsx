@@ -1,5 +1,6 @@
 import {
     DateField,
+    Resource,
     Show,
     ShowProps,
     SimpleShowLayout,
@@ -8,6 +9,9 @@ import {
 } from "react-admin";
 import PossessionList from "../possession/ListPossession";
 import '../admin.scss'
+import PossessionEdit from "../possession/EditPossession";
+import PossessionCreate from "../possession/CreatePossession";
+import PossessionShowDetails from "../possession/ShowPossession";
 
 const DetailsActions = () => (
     <TopToolbar>
@@ -33,7 +37,7 @@ const PatrimoineShowDetails = (props: ShowProps) => (
             <h2>
                 Liste des possessions du patrimoine
             </h2>
-            <PossessionList />
+            <Resource list={PossessionList} edit={PossessionEdit} name='possessions' create={PossessionCreate} show={PossessionShowDetails}></Resource>
         </div>
     </div>
 )

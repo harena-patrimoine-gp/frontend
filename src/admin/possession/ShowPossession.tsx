@@ -18,7 +18,7 @@ const DetailsActions = () => (
     </TopToolbar>
 )
 
-const PossessionShowDetails = (props: ShowProps) => (
+const PossessionShowDetails = (props: any)=> (
     <div>
         <Show {...props} actions={<DetailsActions />}>
             <SimpleShowLayout>
