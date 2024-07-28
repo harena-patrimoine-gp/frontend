@@ -3,7 +3,6 @@ import {
     Datagrid,
     DateField,
     EditButton,
-    FunctionField,
     List,
     ShowButton,
     TextField,
@@ -29,16 +28,16 @@ const PatrimoineList = () => {
         <div>
             <List actions={<ListActions />}>
                 <Datagrid bulkActionButtons={false}>
-                    <TextField source="nom" />
+                    <TextField source="nom" label="Nom du Patrimoine" />
                     <DateField source="t" label="Date" />
-                    <TextField source="possesseur.nom" label="Possesseur" />
-                    <TextField source="valeur_comptable" label="Valeur Comptable" />
-                    <EditButton label='' />
-                    <ShowButton label='voir details'/>
+                    <TextField source="possesseur.nom" label="possesseur" />
+                    <TextField source="valeurComptable" label="Valeur Comptable" />
+                    <EditButton label='Modifier'/>
+                    <ShowButton label='Voir Détails' />
                 </Datagrid>
             </List>
         </div>
     )
-};
+};      
 
 export default PatrimoineList

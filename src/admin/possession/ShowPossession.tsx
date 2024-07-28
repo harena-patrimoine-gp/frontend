@@ -1,7 +1,6 @@
 import {
     DateField,
     Show,
-    ShowProps,
     SimpleShowLayout,
     TextField,
     TopToolbar

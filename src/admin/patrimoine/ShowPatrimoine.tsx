@@ -27,10 +27,10 @@ const PatrimoineShowDetails = (props: ShowProps) => (
     <div>
         <Show {...props} actions={<DetailsActions />}>
             <SimpleShowLayout>
-                <TextField source="nom_patrimoine" label="Nom Patrimoine" />
-                <TextField source="possesseur.nom" label="Possesseur" />
+                <TextField source="nom" label="Nom Patrimoine" />
+                <TextField source="possesseur.nom" label="possesseur" />
                 <DateField source="t" label="Date" />
-                <TextField source="valeur_comptable" label="Valeur Comptable" />
+                <TextField source="valeurComptable" label="Valeur Comptable" />
             </SimpleShowLayout>
         </Show>
         <div className="possession">
@@ -41,5 +41,6 @@ const PatrimoineShowDetails = (props: ShowProps) => (
         </div>
     </div>
 )
+
 
 export default PatrimoineShowDetails
