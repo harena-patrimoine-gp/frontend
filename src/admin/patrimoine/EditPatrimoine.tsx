@@ -1,4 +1,4 @@
-import { defaultTheme, Edit, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
+import { Edit, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
 import { validateDate, validateNumber, validateReq } from "../validators";
 
 const EditActions = () => (
