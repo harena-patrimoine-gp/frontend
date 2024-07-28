@@ -6,7 +6,7 @@ import patrimoineCreate from "../admin/patrimoine/CreatePatrimoine";
 import patrimoineShowDetails from "../admin/patrimoine/ShowPatrimoine";
 import patrimoineEdit from "../admin/patrimoine/EditPatrimoine";
 
-describe("<patrimoineCreate />", () => {
+describe("<patrimoineShow />", () => {
   beforeEach(() => {
     mount(
       <Admin dataProvider={dataProvider}>
