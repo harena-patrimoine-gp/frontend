@@ -1,4 +1,4 @@
-import {CreateButton, Datagrid, DateField, EditButton, FunctionField, List, TextField, TopToolbar } from "react-admin";
+import {CreateButton, Datagrid, DateField, EditButton, FunctionField, List, ShowButton, TextField, TopToolbar } from "react-admin";
 
 const ListActions = () => (
     <TopToolbar>
@@ -26,6 +26,7 @@ const PossessionList = () => (
             <DateField source="Date"/>
             <TextField source="Valeur comptable" label="Valeur comptable" />
             <EditButton label=''/>
+            <ShowButton label='voir details'/>
         </Datagrid>
     </List>
 );

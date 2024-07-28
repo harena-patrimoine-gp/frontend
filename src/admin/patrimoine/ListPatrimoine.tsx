@@ -12,9 +12,6 @@ import {
     from "react-admin";
 import '../admin.scss'
 
-const ShowDetailsButton = (props: any) => (
-    <ShowButton {...props} label='voir details'/>
-)
 
 const ListActions = () => (
     <TopToolbar>
@@ -37,9 +34,7 @@ const PatrimoineList = () => {
                     <TextField source="possesseur.nom" label="Possesseur" />
                     <TextField source="valeur_comptable" label="Valeur Comptable" />
                     <EditButton label='' />
-                    <FunctionField
-                        render={(record: any) => <ShowDetailsButton record={record}/>}
-                    />
+                    <ShowButton label='voir details'/>
                 </Datagrid>
             </List>
         </div>

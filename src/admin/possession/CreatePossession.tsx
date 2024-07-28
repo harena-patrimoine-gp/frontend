@@ -11,8 +11,8 @@ const EditActions = () => (
     </TopToolbar>
 )
 
-const PossessionCreate = () => (
-    <Create actions={<EditActions/>}>
+const PossessionCreate = (props:any) => (
+    <Create actions={<EditActions/>} {...props}>
         <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
             <TextInput source="nom_possession" validate={validateReq} />
             <TextInput source="t" label="Date" validate={validateDate} />
