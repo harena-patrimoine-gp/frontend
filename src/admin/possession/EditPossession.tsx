@@ -1,6 +1,5 @@
-import { DateField, Edit, FunctionField, SaveButton, SimpleForm, TextField, TextInput, Toolbar, TopToolbar } from "react-admin";
+import { Edit, FunctionField, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
 import { validateDate, validateNumber, validateReq } from "../validators";
-import PatrimoineEdit from "../patrimoine/EditPatrimoine";
 
 const EditActions = () => (
     <TopToolbar>
