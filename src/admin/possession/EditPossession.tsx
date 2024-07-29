@@ -1,4 +1,4 @@
-import { DateField, Edit, FunctionField, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
+import { Edit, FunctionField, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
 import { validateDate, validateNumber, validateReq } from "../validators";
 
 const EditActions = () => (
