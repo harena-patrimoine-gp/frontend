@@ -168,7 +168,6 @@ const patrimoineProvider = {
             const response = await conf.post(queryParams, data);
             const dataWithId = {
                 ...response.data,
-                id: response.data.id,
             };
             return {
                 data: dataWithId,
