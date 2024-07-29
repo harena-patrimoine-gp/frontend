@@ -15,9 +15,8 @@ const PatrimoineCreate = () => (
     <Create actions={<EditActions />}>
         <SimpleForm toolbar={<Toolbar><SaveButton /></Toolbar>}>
             <TextInput source="nom" validate={validateReq} />
-            <TextInput source="possessuer.nom" label="possesseur" validate={validateReq} />
+            <TextInput source="possesseur.nom" label="Possesseur" validate={validateReq} />
             <TextInput source="t" label="Date" validate={validateDate} />
-            <TextInput source="valeurComptable" label="Valeur Comptable" validate={validateNumber} />
         </SimpleForm>
     </Create>
 );

@@ -25,6 +25,13 @@ const conf = axios.create({
     },
 });
 
+interface patrimoine{
+    nom:string,
+    possesseur:{
+        nom:string 
+    }
+    t:string
+}  
 interface CustomGetOneParams extends GetOneParams<RaRecord> {
     idPatrimoine?: string;
     idPossession?: string;
@@ -164,7 +171,7 @@ const patrimoineProvider = {
     updateMany: function <RecordType extends RaRecord = any>(_resource: string, _params: UpdateManyParams): Promise<UpdateManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
-    create: async (resource: string, params: { data: PatrimoineBody }) => {
+    create: async (resource: string, params: { data: patrimoine }) => {
         const { data } = params;
         let queryParams = '';
 
@@ -175,10 +182,10 @@ const patrimoineProvider = {
         }
 
         try {
-            const response = await conf.post(queryParams, data);
+            const response = await conf.put(queryParams, data);
             const dataWithId = {
                 ...response.data,
-                id: response.data.id,
+                id: response.data.nom,
             };
             return {
                 data: dataWithId,
