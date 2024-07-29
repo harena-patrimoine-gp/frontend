@@ -1,8 +1,6 @@
 import {
     Datagrid,
-    DateField,
     EditButton,
-    FunctionField,
     List,
     ShowButton,
     TextField,

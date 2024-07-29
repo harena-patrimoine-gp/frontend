@@ -32,18 +32,6 @@ interface patrimoine{
     t:string
 }  
 
-interface possession{
-    nom: string,
-    t: string,
-    valeurComptable: number,
-    devise: {
-      nom: string,
-      valeurEnAriary: number,
-      t: string,
-      tauxDappréciationAnnuel: number
-    }
-}
-
 
 interface CustomGetOneParams extends GetOneParams<RaRecord> {
     idPatrimoine?: string;
@@ -51,7 +39,7 @@ interface CustomGetOneParams extends GetOneParams<RaRecord> {
 }
 
 const patrimoineProvider = {
-    getList: async (resource: string, params: CustomGetOneParams) => {
+    getList: async (resource: string, _params: CustomGetOneParams) => {
         const url = window.location.hash; 
         const path = url.split('/'); 
     
