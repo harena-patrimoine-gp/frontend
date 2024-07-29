@@ -14,9 +14,9 @@ import {
     UpdateManyParams,
     UpdateManyResult,
 } from 'react-admin';
-import { Patrimoine, PatrimoineBody } from './providers/gen';
+import { Patrimoine, PatrimoineBody, Possession } from './providers/gen';
 
-const apiUrl = '/api';
+const apiUrl = 'https://hcwq374pyj.execute-api.eu-west-3.amazonaws.com/Prod';
 
 const conf = axios.create({
     baseURL: apiUrl,
@@ -81,19 +81,37 @@ const patrimoineProvider = {
     getOne: async (resource: string, params: CustomGetOneParams) => {
         const { idPatrimoine, idPossession } = params;
         let queryParams = '';
-
+    
         if (resource === 'patrimoines') {
             queryParams = `/patrimoines/${idPatrimoine}`;
         } else if (resource === 'possessions') {
             queryParams = `/patrimoines/${idPatrimoine}/possessions/${idPossession}`;
         }
-
+    
         try {
             const response = await conf.get(queryParams);
+            const data = response.data;
+    
             const dataWithId = {
-                ...response.data,
-                id: response.data.id,
+                ...data,
+                id: data.id || idPatrimoine || idPossession,  // Adjust this to set the appropriate id
+                nom: data.nom,
+                possesseur: data.possesseur ? { nom: data.possesseur.nom } : null,
+                t: data.t,
+                possessions: data.possessions ? data.possessions.map((possession:Possession) => ({
+                    nom: possession.nom,
+                    t: possession.t,
+                    valeurComptable: possession.valeurComptable,
+                    devise: possession.devise ? {
+                        nom: possession.devise.nom,
+                        valeurEnAriary: possession.devise.valeurEnAriary,
+                        t: possession.devise.t,
+                        tauxDappréciationAnnuel: possession.devise.tauxDappréciationAnnuel
+                    } : null
+                })) : [],
+                valeurComptable: data.valeurComptable
             };
+    
             return {
                 data: dataWithId,
             };
@@ -104,6 +122,7 @@ const patrimoineProvider = {
             };
         }
     },
+    
     getMany: function <RecordType extends RaRecord = any>(_resource: string, _params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
