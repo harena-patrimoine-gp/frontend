@@ -21,13 +21,13 @@ const apiUrl = '/api';
 const conf = axios.create({
     baseURL: apiUrl,
     headers: {
-        'Content-Type': 'application/json', // Assurez-vous que le type de contenu est correct
+        'Content-Type': 'application/json',
     },
 });
 
 interface CustomGetOneParams extends GetOneParams<RaRecord> {
-    idPatrimoine?: number;
-    idPossession?: number;
+    idPatrimoine?: string;
+    idPossession?: string;
 }
 
 const patrimoineProvider = {
@@ -45,9 +45,9 @@ const patrimoineProvider = {
             const response = await conf.get(queryParams);
 
             if (Array.isArray(response.data)) {
-                const data = response.data.map((item: any, index: number) => ({
+                const data = response.data.map((item: any, _index: number) => ({
                     ...item,
-                    id: index,
+                    id: item.nom, 
                 }));
                 return {
                     data: data,
@@ -57,7 +57,7 @@ const patrimoineProvider = {
                 const item = response.data.patrimoine;
                 const data = {
                     ...item,
-                    id: 0,
+                    id: item.nom,
                 };
                 return {
                     data: [data],
@@ -71,7 +71,7 @@ const patrimoineProvider = {
                 };
             }
         } catch (error) {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error);
             return {
                 data: [],
                 total: 0,
@@ -79,31 +79,42 @@ const patrimoineProvider = {
         }
     },
     getOne: async (resource: string, params: CustomGetOneParams) => {
-        const { idPatrimoine, idPossession } = params;
+        const { id } = params;
+        const idString = id?.toString() ?? '';
+        const parts = idString.split('_');
+        const idPatrimoine = parts.slice(1, -2).join('_'); 
+        const idPossession = parts[parts.length - 1];
+
+        console.log('Params:', params);
+        console.log('idPatrimoine:', idPatrimoine); 
+        console.log('idPossession:', idPossession);
+
         let queryParams = '';
 
         if (resource === 'patrimoines') {
-            queryParams = `/patrimoines/${idPatrimoine}`;
+            queryParams = `/patrimoines/${params.id}`;
         } else if (resource === 'possessions') {
             queryParams = `/patrimoines/${idPatrimoine}/possessions/${idPossession}`;
         }
 
         try {
             const response = await conf.get(queryParams);
+            console.log(response);
             const dataWithId = {
                 ...response.data,
-                id: response.data.id,
+                id: response.data.nom,
             };
             return {
                 data: dataWithId,
             };
         } catch (error) {
-            console.error('Error fetching data:', error);
+            // console.error('Error fetching data:', error, queryParams);
             return {
                 data: null,
             };
         }
     },
+    
     getMany: function <RecordType extends RaRecord = any>(_resource: string, _params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
@@ -149,7 +160,7 @@ const patrimoineProvider = {
             const response = await conf.post(queryParams, data);
             const dataWithId = {
                 ...response.data,
-                id: response.data.id,
+                id: response.data.id, 
             };
             return {
                 data: dataWithId,
