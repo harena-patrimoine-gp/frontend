@@ -13,7 +13,7 @@ export default defineConfig({
         configure: (proxy, options) => {
           proxy.on('error', (err, req, res) => {
             console.error('Proxy error:', err);
-            res.status(500).send('Proxy error');
+           // res.status(500).send('Proxy error');
           });
         },
       },
