@@ -1,5 +1,4 @@
 import {
-    CreateButton,
     Datagrid,
     DateField,
     EditButton,
@@ -7,18 +6,10 @@ import {
     List,
     ShowButton,
     TextField,
-    TopToolbar,
     Filter,
     TextInput
 } from "react-admin";
 
-const ListActions = () => (
-    <TopToolbar>
-        <div className='customTopToolBar'>
-            <CreateButton label='Ajouter une nouvelle possession' />
-        </div>
-    </TopToolbar>
-);
 
 const PossessionType = () => (
     <FunctionField label='Type' render={record => {

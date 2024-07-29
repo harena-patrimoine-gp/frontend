@@ -1,5 +1,5 @@
 import {  Edit, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
-import { validateDate, validateNumber, validateReq } from "../validators";
+import { validateDate, validateReq } from "../validators";
 
 const EditActions = () => (
     <TopToolbar>
@@ -17,7 +17,6 @@ const PatrimoineEdit = (props: any) => (
             <TextInput source="nom" label="Nom du Patrimoine" validate={validateReq} />
             <TextInput source="Personne.nom" label="Possesseur" validate={validateReq} />
             <TextInput source="t" label="Date" validate={validateDate} />
-            <TextInput source="valeurComptable" label="Valeur Comptable" validate={validateNumber} />
         </SimpleForm>
     </Edit>
 );

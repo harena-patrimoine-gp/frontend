@@ -14,7 +14,7 @@ import {
     UpdateManyParams,
     UpdateManyResult,
 } from 'react-admin';
-import { Patrimoine, PatrimoineBody, Possession } from './providers/gen';
+import { Patrimoine, Possession } from './providers/gen';
 
 const apiUrl = 'https://hcwq374pyj.execute-api.eu-west-3.amazonaws.com/Prod';
 

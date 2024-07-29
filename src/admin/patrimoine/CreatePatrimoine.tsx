@@ -1,5 +1,5 @@
 import { Create, SaveButton, SimpleForm, TextInput, Toolbar, TopToolbar } from "react-admin";
-import { validateDate, validateNumber, validateReq } from "../validators";
+import { validateDate, validateReq } from "../validators";
 
 const EditActions = () => (
     <TopToolbar>
