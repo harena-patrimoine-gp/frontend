@@ -17,7 +17,6 @@ import {
 import { Patrimoine, Possession } from './providers/gen';
 
 const apiUrl = 'https://hcwq374pyj.execute-api.eu-west-3.amazonaws.com/Prod';
-
 const conf = axios.create({
     baseURL: apiUrl,
     headers: {
@@ -32,30 +31,60 @@ interface patrimoine{
     }
     t:string
 }  
+
+interface possession{
+    nom: string,
+    t: string,
+    valeurComptable: number,
+    devise: {
+      nom: string,
+      valeurEnAriary: number,
+      t: string,
+      tauxDappréciationAnnuel: number
+    }
+}
+
+
 interface CustomGetOneParams extends GetOneParams<RaRecord> {
     idPatrimoine?: string;
     idPossession?: string;
 }
 
 const patrimoineProvider = {
-    getList: async (resource: string, params: any) => {
-        const { id } = params;
+    getList: async (resource: string, params: CustomGetOneParams) => {
+        const url = window.location.hash; 
+        const path = url.split('/'); 
+    
+        let idPatrimoine = '';
+    
+        if (path.length >= 3) {
+            idPatrimoine = path[2]; 
+        }
+    
         let queryParams = '';
-
+    
         if (resource === 'patrimoines') {
             queryParams = '/patrimoines';
         } else if (resource === 'possessions') {
-            queryParams = `/patrimoines/${id}/possessions`;
+            if (idPatrimoine) {
+                queryParams = `/patrimoines/${idPatrimoine}/possessions`;
+            } else {
+                console.error('idPatrimoine is missing for possessions');
+                return { data: [], total: 0 };
+            }
         }
-
+    
+        console.log("queryParams:", queryParams);
+    
         try {
             const response = await conf.get(queryParams);
-
+    
             if (Array.isArray(response.data)) {
-                const data = response.data.map((item: any, _index: number) => ({
+                const data = response.data.map((item: any) => ({
                     ...item,
-                    id: item.nom,
+                    id: item.nom, 
                 }));
+                console.log(data)
                 return {
                     data: data,
                     total: response.data.length,
@@ -64,7 +93,7 @@ const patrimoineProvider = {
                 const item = response.data.patrimoine;
                 const data = {
                     ...item,
-                    id: item.nom,
+                    id: item.nom, 
                 };
                 return {
                     data: [data],
@@ -78,13 +107,13 @@ const patrimoineProvider = {
                 };
             }
         } catch (error) {
-            // console.error('Error fetching data:', error);
+            console.error('Error fetching data:', error);
             return {
                 data: [],
                 total: 0,
             };
         }
-    },
+    },    
     getOne: async (resource: string, params: CustomGetOneParams) => {
         const { id } = params;
         const idString = id?.toString() ?? '';
@@ -93,6 +122,7 @@ const patrimoineProvider = {
         const idPossession = parts[parts.length - 1];
 
         console.log('Params:', params);
+        
         console.log('idPatrimoine:', idPatrimoine);
         console.log('idPossession:', idPossession);
 
@@ -110,7 +140,7 @@ const patrimoineProvider = {
 
             const dataWithId = {
                 ...data,
-                id: data.id || idPatrimoine || idPossession,  // Adjust this to set the appropriate id
+                id: data.id || idPatrimoine || idPossession, 
                 nom: data.nom,
                 possesseur: data.possesseur ? { nom: data.possesseur.nom } : null,
                 t: data.t,

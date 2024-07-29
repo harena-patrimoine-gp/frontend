@@ -7,19 +7,22 @@ import {
     ShowButton,
     TextField,
     Filter,
-    TextInput
+    TextInput,
+    TopToolbar,
+    CreateButton
 } from "react-admin";
 
 
-const PossessionType = () => (
-    <FunctionField label='Type' render={record => {
-        if (record.argent) return 'Argent';
-        if (record.materiel) return 'Matériel';
-        if (record.flux_argent) return 'Flux d\'Argent';
-        return 'Inconnu';
-    }} />
-);
-
+const ListActions = () => (
+    <TopToolbar>
+        <div className='customTopToolBar'>
+            <h2>
+                Liste des possessions
+            </h2>   
+            <CreateButton label='Ajouter un nouveau possession'/>
+        </div>
+    </TopToolbar>
+)
 const PossessionFilter = ({ patrimoineId }: { patrimoineId: string }) => (
     <Filter>
         <TextInput source="patrimoineId" defaultValue={patrimoineId} />
@@ -32,14 +35,13 @@ const PossessionList = ({ patrimoineId }: { patrimoineId: string }) => {
     }
 
     return (
-        <List filters={<PossessionFilter patrimoineId={patrimoineId} />} resource="possessions">
+        <List actions={<ListActions/>} filters={<PossessionFilter patrimoineId={patrimoineId} />} resource="possessions">
             <Datagrid>
-                <PossessionType />
-                <TextField source="Nom possession" label="Nom possession" />
-                <TextField source="Devise.nom" label="Devise" />
-                <DateField source="Date" />
-                <TextField source="Valeur comptable" label="Valeur comptable" />
-                <EditButton label='' />
+                <TextField source="nom" label='Nom' />
+                <TextField source="devise.nom" label="Devise" />
+                <TextField source="t" label="Date" />
+                <TextField source="valeurComptable" label="Valeur comptable" />
+                <EditButton label='Modifier' />
                 <ShowButton label='Voir détails' />
             </Datagrid>
         </List>

@@ -38,7 +38,6 @@ const PatrimoineShowDetails = (props: ShowProps) => {
                 </SimpleShowLayout>
             </Show>
             <div className="possession">
-                <h2>Liste des possessions du patrimoine</h2>
                 <PossessionList patrimoineId={id} />
             </div>
         </div>
