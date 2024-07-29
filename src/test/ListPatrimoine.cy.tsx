@@ -30,7 +30,7 @@ describe("<patrimoineList />", () => {
   });
 
   it('should render the "Possesseur" column', () => {
-    cy.get("th").contains("Possesseur").should("exist");
+    cy.get("th").contains("possesseur").should("exist");
   });
 
   it('should render the "Date" column', () => {
