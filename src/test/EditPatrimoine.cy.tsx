@@ -22,10 +22,10 @@ describe('<patrimoineEdit />', () => {
   });
 
   it('should contain required fields', () => {
-    cy.get('input[name="nom_patrimoine"]').should('exist');
-    cy.get('input[name="possesseur.nom"]').should('exist');
+    cy.get('input[name="nom"]').should('exist');
+    cy.get('input[name="Personne.nom"]').should('exist');
     cy.get('input[name="t"]').should('exist');
-    cy.get('input[name="valeur_comptable"]').should('exist');
+    cy.get('input[name="valeurComptable"]').should('exist');
   });
 
 
