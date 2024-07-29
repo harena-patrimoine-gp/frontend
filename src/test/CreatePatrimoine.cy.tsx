@@ -21,16 +21,16 @@ describe("<patrimoineCreate />", () => {
     cy.get("form").should("exist");
   });
   it("should contain required fields", () => {
-    cy.get('input[name="nom_patrimoine"]').should("exist");
-    cy.get('input[name="possesseur.nom"]').should("exist");
+    cy.get('input[name="nom"]').should("exist");
+    cy.get('input[name="Personne.nom"]').should("exist");
     cy.get('input[name="t"]').should("exist");
-    cy.get('input[name="valeur_comptable"]').should("exist");
+    cy.get('input[name="valeurComptable"]').should("exist");
   });
   it("should save the form with valid inputs", () => {
-    cy.get('input[name="nom_patrimoine"]').type("New Patrimoine");
-    cy.get('input[name="possesseur.nom"]').type("Owner Name");
+    cy.get('input[name="nom"]').type("New Patrimoine");
+    cy.get('input[name="Personne.nom"]').type("Owner Name");
     cy.get('input[name="t"]').type("2024-07-25");
-    cy.get('input[name="valeur_comptable"]').type("1000");
+    cy.get('input[name="valeurComptable"]').type("1000");
     cy.get('button[type="submit"]').click();
   });
 });

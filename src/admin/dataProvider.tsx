@@ -14,9 +14,9 @@ import {
     UpdateManyParams,
     UpdateManyResult,
 } from 'react-admin';
-import { Patrimoine, PatrimoineBody } from './providers/gen';
+import { Patrimoine, PatrimoineBody, Possession } from './providers/gen';
 
-const apiUrl = '/api';
+const apiUrl = 'https://hcwq374pyj.execute-api.eu-west-3.amazonaws.com/Prod';
 
 const conf = axios.create({
     baseURL: apiUrl,
@@ -47,7 +47,7 @@ const patrimoineProvider = {
             if (Array.isArray(response.data)) {
                 const data = response.data.map((item: any, _index: number) => ({
                     ...item,
-                    id: item.nom, 
+                    id: item.nom,
                 }));
                 return {
                     data: data,
@@ -82,11 +82,11 @@ const patrimoineProvider = {
         const { id } = params;
         const idString = id?.toString() ?? '';
         const parts = idString.split('_');
-        const idPatrimoine = parts.slice(1, -2).join('_'); 
+        const idPatrimoine = parts.slice(1, -2).join('_');
         const idPossession = parts[parts.length - 1];
 
         console.log('Params:', params);
-        console.log('idPatrimoine:', idPatrimoine); 
+        console.log('idPatrimoine:', idPatrimoine);
         console.log('idPossession:', idPossession);
 
         let queryParams = '';
@@ -99,22 +99,40 @@ const patrimoineProvider = {
 
         try {
             const response = await conf.get(queryParams);
-            console.log(response);
+            const data = response.data;
+
             const dataWithId = {
-                ...response.data,
-                id: response.data.nom,
+                ...data,
+                id: data.id || idPatrimoine || idPossession,  // Adjust this to set the appropriate id
+                nom: data.nom,
+                possesseur: data.possesseur ? { nom: data.possesseur.nom } : null,
+                t: data.t,
+                possessions: data.possessions ? data.possessions.map((possession: Possession) => ({
+                    nom: possession.nom,
+                    t: possession.t,
+                    valeurComptable: possession.valeurComptable,
+                    devise: possession.devise ? {
+                        nom: possession.devise.nom,
+                        valeurEnAriary: possession.devise.valeurEnAriary,
+                        t: possession.devise.t,
+                        tauxDappréciationAnnuel: possession.devise.tauxDappréciationAnnuel
+                    } : null
+                })) : [],
+                valeurComptable: data.valeurComptable
             };
+
             return {
                 data: dataWithId,
             };
         } catch (error) {
-            // console.error('Error fetching data:', error, queryParams);
+            console.error('Error fetching data:', error);
+
             return {
                 data: null,
             };
         }
     },
-    
+
     getMany: function <RecordType extends RaRecord = any>(_resource: string, _params: GetManyParams<RecordType> & QueryFunctionContext): Promise<GetManyResult<RecordType>> {
         throw new Error('Function not implemented.');
     },
@@ -160,7 +178,7 @@ const patrimoineProvider = {
             const response = await conf.post(queryParams, data);
             const dataWithId = {
                 ...response.data,
-                id: response.data.id, 
+                id: response.data.id,
             };
             return {
                 data: dataWithId,
